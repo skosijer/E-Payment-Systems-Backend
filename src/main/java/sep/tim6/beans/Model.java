@@ -11,7 +11,7 @@ public class Model implements Serializable {
     private int id;
 
     @Column(nullable = false, length = 50)
-    private String name;
+    private String ime;
 
     @ManyToOne
     @JoinColumn
@@ -27,12 +27,12 @@ public class Model implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getIme() {
+        return ime;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setIme(String name) {
+        this.ime = name;
     }
 
     public Marka getMarka() {
