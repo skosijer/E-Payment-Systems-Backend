@@ -28,3 +28,5 @@ CREATE USER insurance IDENTIFIED BY insurance
                 GRANT SELECT ON dba_segments TO insurance;
 
 ```
+
+I jos na kraju mora da se isprati uputstuvo u odgovoru na sledecem linku za problem sa OJDBC-om https://stackoverflow.com/questions/1074869/find-oracle-jdbc-driver-in-maven-repository
