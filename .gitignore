@@ -8,7 +8,6 @@ target/
 .project
 .settings
 .springBeans
-.project
 
 ### IntelliJ IDEA ###
 .idea
@@ -23,7 +22,3 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
-
-
-### User def ###
-lib/
