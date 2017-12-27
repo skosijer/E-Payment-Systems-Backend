@@ -130,7 +130,12 @@ public class TestController {
 		TipRizika tipRizika4 = new TipRizika(); 
 		tipRizika4.setKategorija(kat3);
 		tipRizika4.setNaziv("Paket");
-		tipRizikaRepository.save(tipRizika4); 
+		tipRizikaRepository.save(tipRizika4);
+
+		TipRizika tipRizika5 = new TipRizika();
+		tipRizika5.setKategorija(kat1);
+		tipRizika5.setNaziv("Starost");
+		tipRizikaRepository.save(tipRizika5);
 		
 		////////////////////////////////////////
 		// CENOVNIK
@@ -243,8 +248,26 @@ public class TestController {
 		rizik8.setStavkaCenovnik(stavkaCenovnik1);
 		rizik8.setTipRizika(tipRizika3);
 		rizik8.setVrednost("Požar");
-		rizikRepository.save(rizik8); 
-		
+		rizikRepository.save(rizik8);
+
+		Rizik rizik9 = new Rizik();
+		rizik9.setStavkaCenovnik(stavkaCenovnik1);
+		rizik9.setTipRizika(tipRizika5);
+		rizik9.setVrednost("0-18");
+		rizikRepository.save(rizik9);
+
+		Rizik rizik10 = new Rizik();
+		rizik10.setStavkaCenovnik(stavkaCenovnik1);
+		rizik10.setTipRizika(tipRizika5);
+		rizik10.setVrednost("19-70");
+		rizikRepository.save(rizik10);
+
+		Rizik rizik11 = new Rizik();
+		rizik11.setStavkaCenovnik(stavkaCenovnik1);
+		rizik11.setTipRizika(tipRizika5);
+		rizik11.setVrednost("preko 70");
+		rizikRepository.save(rizik11);
+
 		/////////////////////////////////////////
 		
 		Osoba osoba1 = new Osoba(); 
