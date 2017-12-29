@@ -123,7 +123,7 @@ public class TestController {
 		//Tipovi rizika za osiguranje nekretnine
 		TipRizika tipRizika3 = new TipRizika(); 
 		tipRizika3.setKategorija(kat2);
-		tipRizika3.setNaziv("Generalno");
+		tipRizika3.setNaziv("Osiguranja stana");
 		tipRizikaRepository.save(tipRizika3); 
 		
 		//Tipovi rizika za osiguranje pomoc na putu
@@ -136,6 +136,16 @@ public class TestController {
 		tipRizika5.setKategorija(kat1);
 		tipRizika5.setNaziv("Starost");
 		tipRizikaRepository.save(tipRizika5);
+		
+		TipRizika tipRizika6 = new TipRizika();
+		tipRizika6.setKategorija(kat2);
+		tipRizika6.setNaziv("Starost stana");
+		tipRizikaRepository.save(tipRizika6);
+		
+		TipRizika tipRizika7 = new TipRizika();
+		tipRizika7.setKategorija(kat2);
+		tipRizika7.setNaziv("Procenjena vrednost stana");
+		tipRizikaRepository.save(tipRizika7);
 		
 		////////////////////////////////////////
 		// CENOVNIK
@@ -203,19 +213,19 @@ public class TestController {
 		Rizik rizik1 = new Rizik(); 
 		rizik1.setStavkaCenovnik(stavkaCenovnik8);
 		rizik1.setTipRizika(tipRizika1);
-		rizik1.setVrednost("Evropa");
+		rizik1.setVrednost("Evropa - nadoknada stete do 30.000€.");
 		rizikRepository.save(rizik1); 
 		
 		Rizik rizik2 = new Rizik(); 
 		rizik2.setStavkaCenovnik(stavkaCenovnik7);
 		rizik2.setTipRizika(tipRizika1);
-		rizik2.setVrednost("Svet");
+		rizik2.setVrednost("Svet - nadoknada stete do 40.000€.");
 		rizikRepository.save(rizik2); 
 		
 		Rizik rizik3 = new Rizik(); 
 		rizik3.setStavkaCenovnik(stavkaCenovnik6);
 		rizik3.setTipRizika(tipRizika1);
-		rizik3.setVrednost("Interkontinentalno");
+		rizik3.setVrednost("Interkontinentalno - nadoknada stete do 15.000€.");
 		rizikRepository.save(rizik3); 
 		
 		//Sport
@@ -228,7 +238,7 @@ public class TestController {
 		Rizik rizik5 = new Rizik(); 
 		rizik5.setStavkaCenovnik(stavkaCenovnik4);
 		rizik5.setTipRizika(tipRizika2);
-		rizik5.setVrednost("Fodbal");
+		rizik5.setVrednost("Turistički");
 		rizikRepository.save(rizik5); 
 		
 		//Generalno
@@ -253,21 +263,86 @@ public class TestController {
 		Rizik rizik9 = new Rizik();
 		rizik9.setStavkaCenovnik(stavkaCenovnik1);
 		rizik9.setTipRizika(tipRizika5);
-		rizik9.setVrednost("0-18");
+		rizik9.setVrednost("Deca (0 - 18 godina)");
 		rizikRepository.save(rizik9);
 
 		Rizik rizik10 = new Rizik();
 		rizik10.setStavkaCenovnik(stavkaCenovnik1);
 		rizik10.setTipRizika(tipRizika5);
-		rizik10.setVrednost("19-70");
+		rizik10.setVrednost("Odrasli (19 - 70 godina)");
 		rizikRepository.save(rizik10);
 
 		Rizik rizik11 = new Rizik();
 		rizik11.setStavkaCenovnik(stavkaCenovnik1);
 		rizik11.setTipRizika(tipRizika5);
-		rizik11.setVrednost("preko 70");
+		rizik11.setVrednost("Starija lica (preko 70 godina)");
 		rizikRepository.save(rizik11);
+		
+		Rizik rizik12 = new Rizik();
+		rizik12.setStavkaCenovnik(stavkaCenovnik1);
+		rizik12.setTipRizika(tipRizika4);
+		rizik12.setVrednost("Šlepovanje do određene kilometraže");
+		rizikRepository.save(rizik12);
 
+		Rizik rizik13 = new Rizik();
+		rizik13.setStavkaCenovnik(stavkaCenovnik1);
+		rizik13.setTipRizika(tipRizika4);
+		rizik13.setVrednost("Popravka do određene cene");
+		rizikRepository.save(rizik13);
+		
+		Rizik rizik14 = new Rizik();
+		rizik14.setStavkaCenovnik(stavkaCenovnik1);
+		rizik14.setTipRizika(tipRizika4);
+		rizik14.setVrednost("Smeštaj u hotelu do određenog broja dana");
+		rizikRepository.save(rizik14);
+		
+		Rizik rizik15 = new Rizik();
+		rizik15.setStavkaCenovnik(stavkaCenovnik1);
+		rizik15.setTipRizika(tipRizika4);
+		rizik15.setVrednost("Alternativni prevoz");
+		rizikRepository.save(rizik15);
+		
+		Rizik rizik16 = new Rizik();
+		rizik16.setStavkaCenovnik(stavkaCenovnik1);
+		rizik16.setTipRizika(tipRizika6);
+		rizik16.setVrednost("Do 5 godina");
+		rizikRepository.save(rizik16);
+		
+		Rizik rizik17 = new Rizik();
+		rizik17.setStavkaCenovnik(stavkaCenovnik1);
+		rizik17.setTipRizika(tipRizika6);
+		rizik17.setVrednost("Do 20 godina");
+		rizikRepository.save(rizik17);
+		
+		Rizik rizik18 = new Rizik();
+		rizik18.setStavkaCenovnik(stavkaCenovnik1);
+		rizik18.setTipRizika(tipRizika6);
+		rizik18.setVrednost("Do 50 godina");
+		rizikRepository.save(rizik18);
+		
+		Rizik rizik19 = new Rizik();
+		rizik19.setStavkaCenovnik(stavkaCenovnik1);
+		rizik19.setTipRizika(tipRizika6);
+		rizik19.setVrednost("Preko 50 godina");
+		rizikRepository.save(rizik19);
+		
+		Rizik rizik20 = new Rizik();
+		rizik20.setStavkaCenovnik(stavkaCenovnik1);
+		rizik20.setTipRizika(tipRizika7);
+		rizik20.setVrednost("Do 50.000€");
+		rizikRepository.save(rizik20);
+		
+		Rizik rizik21 = new Rizik();
+		rizik21.setStavkaCenovnik(stavkaCenovnik1);
+		rizik21.setTipRizika(tipRizika7);
+		rizik21.setVrednost("Do 100.000€");
+		rizikRepository.save(rizik21);
+		
+		Rizik rizik22 = new Rizik();
+		rizik22.setStavkaCenovnik(stavkaCenovnik1);
+		rizik22.setTipRizika(tipRizika7);
+		rizik22.setVrednost("Preko 100.000€");
+		rizikRepository.save(rizik22);
 		/////////////////////////////////////////
 		
 		Osoba osoba1 = new Osoba(); 
