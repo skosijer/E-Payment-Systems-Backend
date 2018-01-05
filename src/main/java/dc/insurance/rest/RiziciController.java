@@ -37,4 +37,19 @@ public class RiziciController {
         return new ResponseEntity<>(ret, HttpStatus.OK);
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/dobaviRegione")
+    private ResponseEntity<?> dobaviRegione() {
+
+        List<TipRizika> list = this.tipRizikaRepository.findByNaziv("Region");
+
+        if(list.size() == 0)
+            return new ResponseEntity<>("nema regiona", HttpStatus.NOT_FOUND);
+
+        TipRizika tipRizika = list.get(0);
+        List<Rizik> ret = this.rizikRepository.findByTipRizika(tipRizika);
+
+        return new ResponseEntity<>(ret, HttpStatus.OK);
+
+    }
+
 }
