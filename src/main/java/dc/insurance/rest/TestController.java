@@ -410,7 +410,7 @@ public class TestController {
 		polisa1.setEmail("mail1");
 		polisa1.setOd(new Date(1504994400000L));	// 10.09.2017
 		polisa1.setDoo(new Date(1505858400000L));  	// 20.09.2017
-		polisa1.setOsiguranik(osiguranik1);
+		polisa1.setOsiguranici(null);
 		polisa1.setOsiguravac(osiguravac1);
 		polisaRepository.save(polisa1); 
 		

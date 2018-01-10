@@ -3,6 +3,7 @@ package dc.insurance.domain;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Polisa implements Serializable {
@@ -23,9 +24,9 @@ public class Polisa implements Serializable {
     @Column(nullable = false, length = 50)
     private String email;
 
-    @ManyToOne
+    @ManyToMany
     @JoinColumn
-    private Osiguranik osiguranik;
+    private List<Osiguranik> osiguranici;
 
     @ManyToOne
     @JoinColumn
@@ -73,12 +74,12 @@ public class Polisa implements Serializable {
         this.email = email;
     }
 
-    public Osiguranik getOsiguranik() {
-        return osiguranik;
+    public List<Osiguranik> getOsiguranici() {
+        return osiguranici;
     }
 
-    public void setOsiguranik(Osiguranik osiguranik) {
-        this.osiguranik = osiguranik;
+    public void setOsiguranici(List<Osiguranik> osiguranici) {
+        this.osiguranici = osiguranici;
     }
 
     public Osiguravac getOsiguravac() {

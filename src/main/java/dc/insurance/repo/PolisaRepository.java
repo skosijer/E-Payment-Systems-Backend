@@ -18,6 +18,5 @@ public interface PolisaRepository extends JpaRepository<Polisa, Integer>{
 	List<Polisa> findByDoo(Date doo);
 	List<Polisa> findByBrOsoba(int brOsoba);
 	List<Polisa> findByEmail(String email);
-	List<Polisa> findByOsiguranik(Osiguranik osiguranik);
 	List<Polisa> findByOsiguravac(Osiguravac osiguravac);
 }
