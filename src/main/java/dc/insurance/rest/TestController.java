@@ -1,41 +1,15 @@
 package dc.insurance.rest;
 
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import dc.insurance.domain.Cenovnik;
-import dc.insurance.domain.Faktura;
-import dc.insurance.domain.Kategorija;
-import dc.insurance.domain.Marka;
-import dc.insurance.domain.Model;
-import dc.insurance.domain.Nekretnina;
-import dc.insurance.domain.Osiguranik;
-import dc.insurance.domain.Osiguravac;
-import dc.insurance.domain.Osoba;
-import dc.insurance.domain.Polisa;
-import dc.insurance.domain.Rizik;
-import dc.insurance.domain.Stavka;
-import dc.insurance.domain.StavkaCenovnik;
-import dc.insurance.domain.TipRizika;
-import dc.insurance.domain.Vozilo;
 import dc.insurance.repo.CenovnikRepository;
-import dc.insurance.repo.FakturaRepository;
 import dc.insurance.repo.KategorijaRepository;
-import dc.insurance.repo.MarkaRepository;
-import dc.insurance.repo.ModelRepository;
 import dc.insurance.repo.NekretninaRepository;
-import dc.insurance.repo.OsiguranikRepository;
-import dc.insurance.repo.OsiguravacRepository;
 import dc.insurance.repo.OsobaRepository;
 import dc.insurance.repo.PolisaRepository;
 import dc.insurance.repo.RizikRepository;
-import dc.insurance.repo.StavkaCenovnikRepository;
 import dc.insurance.repo.StavkaRepository;
 import dc.insurance.repo.TipRizikaRepository;
 import dc.insurance.repo.VoziloRepository;
@@ -57,22 +31,10 @@ public class TestController {
 	private CenovnikRepository cenovnikRepository; 
 	
 	@Autowired
-	private StavkaCenovnikRepository stavkaCenovnikRepository; 
-	
-	@Autowired
 	private OsobaRepository osobaRepository; 
 	
 	@Autowired
-	private OsiguravacRepository osiguravacRepository; 
-	
-	@Autowired 
-	private OsiguranikRepository osiguranikRepository; 
-	
-	@Autowired
 	private PolisaRepository polisaRepository; 
-	
-	@Autowired 
-	private FakturaRepository fakturaRepository; 
 	
 	@Autowired 
 	private StavkaRepository stavkaRepository; 
@@ -81,18 +43,12 @@ public class TestController {
 	private NekretninaRepository nekretninaRepository; 
 	
 	@Autowired
-	private MarkaRepository markaRepository; 
-	
-	@Autowired
-	private ModelRepository modelRepository; 
-	
-	@Autowired
 	private VoziloRepository voziloRepository; 
 	
 	//@Value("${jelena.google.key}")
 	//private String jelenaApiKey;
 
-	
+	/*
 	@RequestMapping(method = RequestMethod.GET, value = "/fill-insurance-database")
 	public ResponseEntity<?> fillInsuranceDatabase() {
 		
@@ -464,7 +420,7 @@ public class TestController {
 		System.out.println("DATABASE FILLED");
 		
 		return new ResponseEntity<>(HttpStatus.OK);
-	}
+	} */
 		
 		
 	

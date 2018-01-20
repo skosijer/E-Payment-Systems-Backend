@@ -1,66 +1,134 @@
 package dc.insurance.domain;
 
-import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 @Entity
 public class Osoba implements Serializable {
 
-    @Id
-    @GeneratedValue
-    private int id;
+	@Id
+	@GeneratedValue
+	private int idOsoba;
 
-    @Column(length = 30, nullable = false)
-    private String ime;
+	@Enumerated(EnumType.STRING)
+	private TIPOSOBE tipOsobe;
 
-    @Column(length = 30, nullable = false)
-    private String prezime;
+	@Column(length = 30)
+	private String ime;
 
-    @Column(length = 13, nullable = false)
-    private String JMBG;
+	@Column(length = 30)
+	private String prezime;
 
-    @Column(length = 100, nullable = false)
-    private String adresa;
+	@Column(length = 13)
+	private String JMBG;
 
-    public Osoba(){}
+	@Column(length = 100)
+	private String adresa;
 
-    public int getId() {
-        return id;
-    }
+	@Column(length = 50)
+	private String brojPasosa;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	@Column(length = 50)
+	private String brojTelefona;
 
-    public String getIme() {
-        return ime;
-    }
+	@Column
+	private Date datumRodjenja;
 
-    public void setIme(String ime) {
-        this.ime = ime;
-    }
+	@Column(length = 50)
+	private String email;
 
-    public String getPrezime() {
-        return prezime;
-    }
+	public enum TIPOSOBE {
+		PRODAVAC, OSIGURANIK, FINANSIJSKI_ANALITICAR, DRUGO_LICE
+	};
 
-    public void setPrezime(String prezime) {
-        this.prezime = prezime;
-    }
+	public Osoba() {
+	}
 
-    public String getJMBG() {
-        return JMBG;
-    }
+	public int getIdOsoba() {
+		return idOsoba;
+	}
 
-    public void setJMBG(String JMBG) {
-        this.JMBG = JMBG;
-    }
+	public void setIdOsoba(int idOsoba) {
+		this.idOsoba = idOsoba;
+	}
 
-    public String getAdresa() {
-        return adresa;
-    }
+	public TIPOSOBE getTipOsobe() {
+		return tipOsobe;
+	}
 
-    public void setAdresa(String adresa) {
-        this.adresa = adresa;
-    }
+	public void setTipOsobe(TIPOSOBE tipOsobe) {
+		this.tipOsobe = tipOsobe;
+	}
+
+	public String getIme() {
+		return ime;
+	}
+
+	public void setIme(String ime) {
+		this.ime = ime;
+	}
+
+	public String getPrezime() {
+		return prezime;
+	}
+
+	public void setPrezime(String prezime) {
+		this.prezime = prezime;
+	}
+
+	public String getJMBG() {
+		return JMBG;
+	}
+
+	public void setJMBG(String jMBG) {
+		JMBG = jMBG;
+	}
+
+	public String getAdresa() {
+		return adresa;
+	}
+
+	public void setAdresa(String adresa) {
+		this.adresa = adresa;
+	}
+
+	public String getBrojPasosa() {
+		return brojPasosa;
+	}
+
+	public void setBrojPasosa(String brojPasosa) {
+		this.brojPasosa = brojPasosa;
+	}
+
+	public String getBrojTelefona() {
+		return brojTelefona;
+	}
+
+	public void setBrojTelefona(String brojTelefona) {
+		this.brojTelefona = brojTelefona;
+	}
+
+	public Date getDatumRodjenja() {
+		return datumRodjenja;
+	}
+
+	public void setDatumRodjenja(Date datumRodjenja) {
+		this.datumRodjenja = datumRodjenja;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 }

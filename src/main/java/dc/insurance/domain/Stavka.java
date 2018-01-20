@@ -1,46 +1,64 @@
 package dc.insurance.domain;
 
-import javax.persistence.*;
 import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Stavka implements Serializable {
 
-    @Id
-    @GeneratedValue
-    private int id;
+	@Id
+	@GeneratedValue
+	private int idStavka;
 
-    @ManyToOne
-    @JoinColumn
-    private Faktura faktura;
+	@Column(nullable = false)
+	private int kolicnik;
 
-    @ManyToOne
-    @JoinColumn
-    private Rizik rizik;
+	@Column(nullable = false)
+	private int jedinicnaCena;
 
-    public Stavka(){}
+	@ManyToOne
+	@JoinColumn
+	private Rizik rizik;
 
-    public int getId() {
-        return id;
-    }
+	public Stavka() {
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public int getIdStavka() {
+		return idStavka;
+	}
 
-    public Faktura getFaktura() {
-        return faktura;
-    }
+	public void setIdStavka(int idStavka) {
+		this.idStavka = idStavka;
+	}
 
-    public void setFaktura(Faktura faktura) {
-        this.faktura = faktura;
-    }
+	public int getKolicnik() {
+		return kolicnik;
+	}
 
-    public Rizik getRizik() {
-        return rizik;
-    }
+	public void setKolicnik(int kolicnik) {
+		this.kolicnik = kolicnik;
+	}
 
-    public void setRizik(Rizik rizik) {
-        this.rizik = rizik;
-    }
+	public int getJedinicnaCena() {
+		return jedinicnaCena;
+	}
+
+	public void setJedinicnaCena(int jedinicnaCena) {
+		this.jedinicnaCena = jedinicnaCena;
+	}
+
+	public Rizik getRizik() {
+		return rizik;
+	}
+
+	public void setRizik(Rizik rizik) {
+		this.rizik = rizik;
+	}
+
 }
