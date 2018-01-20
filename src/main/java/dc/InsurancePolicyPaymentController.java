@@ -22,11 +22,11 @@ public class InsurancePolicyPaymentController {
 	    this.primerRepo = primerRepo;
 	  }
 
-	  @RequestMapping("/insurancePolicyPayment/{id}")
-	  public String insurancePolicyPayment(@PathVariable("id") int id) {
-	    Cenovnik cenovnik = cenovnikRepo.findById(id);
-	    Primer primer = primerRepo.findById(id);
-
-	    return cenovnik.getId() + " " + primer.getId() + "!";
-	  }
+//	  @RequestMapping("/insurancePolicyPayment/{id}")
+//	  public String insurancePolicyPayment(@PathVariable("id") int id) {
+//	    Cenovnik cenovnik = cenovnikRepo.findById(id);
+//	    Primer primer = primerRepo.findById(id);
+//
+//	    return cenovnik.getId() + " " + primer.getId() + "!";
+//	  }
 }

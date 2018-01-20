@@ -1,57 +1,64 @@
 package dc.insurance.domain;
 
-import javax.persistence.*;
 import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Rizik implements Serializable {
 
-    @GeneratedValue
-    @Id
-    private int id;
+	@Id
+	@GeneratedValue
+	private int idRizik;
 
-    @Column(nullable = false, length = 255)
-    private String vrednost;
+	@Column(nullable = false, length = 255, unique = true)
+	private String vrednost;
 
-    @ManyToOne
-    @JoinColumn
-    private TipRizika tipRizika;
+	@Column(nullable = true)
+	private int kolicina;
 
-    @ManyToOne
-    @JoinColumn
-    private StavkaCenovnik stavkaCenovnik;
+	@ManyToOne
+	@JoinColumn
+	private TipRizika tipRizika;
 
-    public Rizik(){}
+	public Rizik() {
+	}
 
-    public int getId() {
-        return id;
-    }
+	public int getIdRizik() {
+		return idRizik;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public void setIdRizik(int idRizik) {
+		this.idRizik = idRizik;
+	}
 
-    public String getVrednost() {
-        return vrednost;
-    }
+	public String getVrednost() {
+		return vrednost;
+	}
 
-    public void setVrednost(String vrednost) {
-        this.vrednost = vrednost;
-    }
+	public void setVrednost(String vrednost) {
+		this.vrednost = vrednost;
+	}
 
-    public TipRizika getTipRizika() {
-        return tipRizika;
-    }
+	public int getKolicina() {
+		return kolicina;
+	}
 
-    public void setTipRizika(TipRizika tipRizika) {
-        this.tipRizika = tipRizika;
-    }
+	public void setKolicina(int kolicina) {
+		this.kolicina = kolicina;
+	}
 
-    public StavkaCenovnik getStavkaCenovnik() {
-        return stavkaCenovnik;
-    }
+	public TipRizika getTipRizika() {
+		return tipRizika;
+	}
 
-    public void setStavkaCenovnik(StavkaCenovnik stavkaCenovnik) {
-        this.stavkaCenovnik = stavkaCenovnik;
-    }
+	public void setTipRizika(TipRizika tipRizika) {
+		this.tipRizika = tipRizika;
+	}
+
 }

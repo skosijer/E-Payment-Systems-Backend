@@ -6,8 +6,6 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import dc.insurance.domain.Marka;
-import dc.insurance.domain.Model;
 import dc.insurance.domain.Osoba;
 import dc.insurance.domain.Polisa;
 import dc.insurance.domain.Vozilo;
@@ -21,6 +19,4 @@ public interface VoziloRepository extends JpaRepository<Vozilo, Integer>{
 	Vozilo findByBrSasije(String brSasije);
 	List<Vozilo> findByOsoba(Osoba osoba);
 	List<Vozilo> findByPolisa(Polisa polisa); 
-	List<Vozilo> findByMarka(Marka marka); 
-	List<Vozilo> findByModel(Model model);
 }

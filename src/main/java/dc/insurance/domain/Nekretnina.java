@@ -1,46 +1,57 @@
 package dc.insurance.domain;
 
-import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Nekretnina implements Serializable {
 
-    @Id
-    @GeneratedValue
-    private int id;
+	@Id
+	@GeneratedValue
+	private int idNekretnina;
 
-    @ManyToOne
-    @JoinColumn
-    private Osoba osoba;
+	@ManyToOne
+	@JoinColumn
+	private Osoba vlasnik;
 
-    @ManyToOne
-    @JoinColumn
-    private Polisa polisa;
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "nekretnina_rizik", joinColumns = @JoinColumn(name = "idNekretnina"), inverseJoinColumns = @JoinColumn(name = "idRizik"))
+	private Collection<Rizik> rizici;
 
-    public Nekretnina(){}
+	public Nekretnina() {
+	}
 
-    public int getId() {
-        return id;
-    }
+	public int getIdNekretnina() {
+		return idNekretnina;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public void setIdNekretnina(int idNekretnina) {
+		this.idNekretnina = idNekretnina;
+	}
 
-    public Osoba getOsoba() {
-        return osoba;
-    }
+	public Osoba getVlasnik() {
+		return vlasnik;
+	}
 
-    public void setOsoba(Osoba osoba) {
-        this.osoba = osoba;
-    }
+	public void setVlasnik(Osoba vlasnik) {
+		this.vlasnik = vlasnik;
+	}
 
-    public Polisa getPolisa() {
-        return polisa;
-    }
+	public Collection<Rizik> getRizici() {
+		return rizici;
+	}
 
-    public void setPolisa(Polisa polisa) {
-        this.polisa = polisa;
-    }
+	public void setRizici(Collection<Rizik> rizici) {
+		this.rizici = rizici;
+	}
+
 }
