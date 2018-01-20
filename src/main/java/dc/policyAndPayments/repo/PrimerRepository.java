@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import dc.policyAndPayments.domain.Primer;
 
 @Repository
-public interface PrimerRepository  extends JpaRepository<Primer, Long>{
-	Primer findById(int id); 
+public interface PrimerRepository extends JpaRepository<Primer, Long> {
+	Primer findById(int id);
 }

@@ -19,9 +19,6 @@ public class Rizik implements Serializable {
 	@Column(nullable = false, length = 255, unique = true)
 	private String vrednost;
 
-	@Column(nullable = true)
-	private int kolicina;
-
 	@ManyToOne
 	@JoinColumn
 	private TipRizika tipRizika;
@@ -43,14 +40,6 @@ public class Rizik implements Serializable {
 
 	public void setVrednost(String vrednost) {
 		this.vrednost = vrednost;
-	}
-
-	public int getKolicina() {
-		return kolicina;
-	}
-
-	public void setKolicina(int kolicina) {
-		this.kolicina = kolicina;
 	}
 
 	public TipRizika getTipRizika() {

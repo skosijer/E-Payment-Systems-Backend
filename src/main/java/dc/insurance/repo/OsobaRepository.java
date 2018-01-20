@@ -10,9 +10,4 @@ import dc.insurance.domain.Osoba;
 @Repository
 public interface OsobaRepository extends JpaRepository<Osoba, Integer>{
 
-	Osoba findById(int id);
-	List<Osoba> findByIme(String ime);
-	List<Osoba> findByPrezime(String prezime);
-	//Osoba findByJMBG(String JMBG);
-	List<Osoba> findByAdresa(String adresa);
 }

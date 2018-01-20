@@ -11,6 +11,4 @@ import dc.insurance.domain.Stavka;
 @Repository
 public interface StavkaRepository extends JpaRepository<Stavka, Integer>{
 
-	Stavka findById(int id);
-	List<Stavka> findByRizik(Rizik rizik);
 }

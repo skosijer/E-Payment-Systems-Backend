@@ -8,7 +8,5 @@ import dc.insurance.domain.Kategorija;
 @Repository
 public interface KategorijaRepository extends JpaRepository<Kategorija, Integer> {
 	
-	Kategorija findById(int id);
-	Kategorija findByNaziv(String naziv);
 
 }
