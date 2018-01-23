@@ -22,14 +22,12 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
     basePackages = {"dc.policyAndPayments.repo"})
 public class PolicyAndPaymentsDBConfig {
 	
-	@Primary
     @Bean(name = "dataSource")
     @ConfigurationProperties(prefix = "policyandpayments.datasource")
     public DataSource dataSource() {
         return DataSourceBuilder.create().build();
     }
 
-    @Primary
     @Bean(name = "entityManagerFactory")
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(
             EntityManagerFactoryBuilder builder, @Qualifier("dataSource") DataSource dataSource) {
@@ -37,7 +35,6 @@ public class PolicyAndPaymentsDBConfig {
                 .build();
     }
 
-    @Primary
     @Bean(name = "transactionManager")
     public PlatformTransactionManager transactionManager(
             @Qualifier("entityManagerFactory") EntityManagerFactory entityManagerFactory) {

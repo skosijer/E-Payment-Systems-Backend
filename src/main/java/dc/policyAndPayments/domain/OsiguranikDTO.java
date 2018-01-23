@@ -1,26 +1,15 @@
-package dc.insurance.domain;
+package dc.policyAndPayments.domain;
 
-import javax.persistence.*;
 import java.io.Serializable;
 
-@Entity
-public class Osiguranik implements Serializable {
+public class OsiguranikDTO implements Serializable {
 
-    @Id
-    @GeneratedValue
     private int id;
-
-    @Column(length = 15, nullable = false)
     private String brojPasosa;
-
-    @Column(length = 30, nullable = false)
     private String brojTelefona;
+    private OsobaDTO osoba;
 
-    @ManyToOne
-    @JoinColumn
-    private Osoba osoba;
-
-    public Osiguranik(){}
+    public OsiguranikDTO(){}
 
     public int getId() {
         return id;
@@ -46,11 +35,21 @@ public class Osiguranik implements Serializable {
         this.brojTelefona = brojTelefona;
     }
 
-    public Osoba getOsoba() {
+    public OsobaDTO getOsoba() {
         return osoba;
     }
 
-    public void setOsoba(Osoba osoba) {
+    public void setOsoba(OsobaDTO osoba) {
         this.osoba = osoba;
+    }
+
+    @Override
+    public String toString() {
+        return "OsiguranikDTO{" +
+                "id=" + id +
+                ", brojPasosa='" + brojPasosa + '\'' +
+                ", brojTelefona='" + brojTelefona + '\'' +
+                ", osoba=" + osoba +
+                '}';
     }
 }

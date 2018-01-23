@@ -1,23 +1,14 @@
-package dc.insurance.domain;
+package dc.policyAndPayments.domain;
 
-import javax.persistence.*;
 import java.io.Serializable;
 
-@Entity
-public class Model implements Serializable {
+public class ModelDTO implements Serializable {
 
-    @Id
-    @GeneratedValue
     private int id;
-
-    @Column(nullable = false, length = 50)
     private String ime;
+    private MarkaDTO marka;
 
-    @ManyToOne
-    @JoinColumn
-    private Marka marka;
-
-    public Model(){}
+    public ModelDTO(){}
 
     public int getId() {
         return id;
@@ -35,11 +26,11 @@ public class Model implements Serializable {
         this.ime = name;
     }
 
-    public Marka getMarka() {
+    public MarkaDTO getMarka() {
         return marka;
     }
 
-    public void setMarka(Marka marka) {
+    public void setMarka(MarkaDTO marka) {
         this.marka = marka;
     }
 }

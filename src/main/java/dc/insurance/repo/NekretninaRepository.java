@@ -12,7 +12,4 @@ import dc.insurance.domain.Polisa;
 @Repository
 public interface NekretninaRepository extends JpaRepository<Nekretnina, Integer> {
 
-	Nekretnina findById(int id);
-	List<Nekretnina> findByOsoba(Osoba osoba);
-	List<Nekretnina> findByPolisa(Polisa polisa);
 }

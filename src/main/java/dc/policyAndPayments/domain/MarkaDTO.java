@@ -1,22 +1,14 @@
-package dc.insurance.domain;
+package dc.policyAndPayments.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+
 import java.io.Serializable;
 
-@Entity
-public class Osiguravac implements Serializable {
+public class MarkaDTO implements Serializable {
 
-    @Id
-    @GeneratedValue
     private int id;
-
-    @Column(length = 50, nullable = false)
     private String naziv;
 
-    public Osiguravac(){}
+    public MarkaDTO(){}
 
     public int getId() {
         return id;

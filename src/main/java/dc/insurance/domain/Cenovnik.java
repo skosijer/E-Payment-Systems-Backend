@@ -1,49 +1,66 @@
 package dc.insurance.domain;
 
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.io.Serializable;
-import java.util.Date;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Cenovnik implements Serializable {
 
-    @Id
-    @GeneratedValue
-    private int id;
+	@Id
+	@GeneratedValue
+	private int idCenovnik;
 
-    @Column(nullable = false)
-    private Date od;
+	@Column(nullable = false)
+	private Date datumOd;
 
-    @Column(nullable = false)
-    private Date doo;
+	@Column(nullable = false)
+	private Date datumDo;
 
-    public Cenovnik(){}
+	@OneToMany
+	@JoinColumn
+	private Collection<Stavka> stavke;
 
-    public int getId() {
-        return id;
-    }
+	public Cenovnik() {
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public int getIdCenovnik() {
+		return idCenovnik;
+	}
 
-    public Date getOd() {
-        return od;
-    }
+	public void setIdCenovnik(int idCenovnik) {
+		this.idCenovnik = idCenovnik;
+	}
 
-    public void setOd(Date od) {
-        this.od = od;
-    }
+	public Date getDatumOd() {
+		return datumOd;
+	}
 
-    public Date getDoo() {
-        return doo;
-    }
+	public void setDatumOd(Date datumOd) {
+		this.datumOd = datumOd;
+	}
 
-    public void setDoo(Date doo) {
-        this.doo = doo;
-    }
-    
+	public Date getDatumDo() {
+		return datumDo;
+	}
+
+	public void setDatumDo(Date datumDo) {
+		this.datumDo = datumDo;
+	}
+
+	public Collection<Stavka> getStavke() {
+		return stavke;
+	}
+
+	public void setStavke(Collection<Stavka> stavke) {
+		this.stavke = stavke;
+	}
+
 }

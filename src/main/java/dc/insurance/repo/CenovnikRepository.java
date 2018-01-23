@@ -10,9 +10,6 @@ import dc.insurance.domain.Cenovnik;
 @Repository
 public interface CenovnikRepository extends JpaRepository<Cenovnik, Integer> {
 
-	Cenovnik findById(int id);
-	Cenovnik findByOd(Date od);
-	Cenovnik findByDoo(Date doo);	
 }
 
 

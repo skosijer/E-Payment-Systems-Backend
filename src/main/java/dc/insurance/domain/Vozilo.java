@@ -1,116 +1,103 @@
 package dc.insurance.domain;
 
-import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Vozilo implements Serializable {
 
-    @GeneratedValue
-    @Id
-    private int id;
+	@GeneratedValue
+	@Id
+	private int idVozilo;
 
-    @Column(nullable = false)
-    private Date godProizvodnje;
+	@Column(nullable = false)
+	private Date godinaProizvodnje;
 
-    @Column(nullable = false, length = 10)
-    private String regTablice;
+	@Column(nullable = false, length = 10)
+	private String tablice;
 
-    @Column(nullable = false, length = 30)
-    private String brSasije;
+	@Column(nullable = false, length = 30)
+	private String brojSasije;
 
-    @ManyToOne
-    @JoinColumn
-    private Osoba osoba;
+	@Column(nullable = false)
+	private String markaTip;
 
-    @ManyToOne
-    @JoinColumn
-    private Polisa polisa;
+	@ManyToOne
+	@JoinColumn
+	private Osoba vlasnik;
 
-    @ManyToOne
-    @JoinColumn
-    private Marka marka;
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "vozilo_rizik", joinColumns = @JoinColumn(name = "idVozilo"), inverseJoinColumns = @JoinColumn(name = "idRizik"))
+	private Collection<Rizik> rizici;
 
-    @ManyToOne
-    @JoinColumn
-    private Model model;
+	public Vozilo() {
+	}
 
-    @Column(nullable = false)
-    private boolean jeVlasnik = true;
+	public int getIdVozilo() {
+		return idVozilo;
+	}
 
-    public Vozilo(){}
+	public void setIdVozilo(int idVozilo) {
+		this.idVozilo = idVozilo;
+	}
 
+	public Date getGodinaProizvodnje() {
+		return godinaProizvodnje;
+	}
 
-    public int getId() {
-        return id;
-    }
+	public void setGodinaProizvodnje(Date godinaProizvodnje) {
+		this.godinaProizvodnje = godinaProizvodnje;
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public String getTablice() {
+		return tablice;
+	}
 
-    public Date getGodProizvodnje() {
-        return godProizvodnje;
-    }
+	public void setTablice(String tablice) {
+		this.tablice = tablice;
+	}
 
-    public void setGodProizvodnje(Date godProizvodnje) {
-        this.godProizvodnje = godProizvodnje;
-    }
+	public String getBrojSasije() {
+		return brojSasije;
+	}
 
-    public String getRegTablice() {
-        return regTablice;
-    }
+	public void setBrojSasije(String brojSasije) {
+		this.brojSasije = brojSasije;
+	}
 
-    public void setRegTablice(String regTablice) {
-        this.regTablice = regTablice;
-    }
+	public String getMarkaTip() {
+		return markaTip;
+	}
 
-    public String getBrSasije() {
-        return brSasije;
-    }
+	public void setMarkaTip(String markaTip) {
+		this.markaTip = markaTip;
+	}
 
-    public void setBrSasije(String brSasije) {
-        this.brSasije = brSasije;
-    }
+	public Osoba getVlasnik() {
+		return vlasnik;
+	}
 
-    public Osoba getOsoba() {
-        return osoba;
-    }
+	public void setVlasnik(Osoba vlasnik) {
+		this.vlasnik = vlasnik;
+	}
 
-    public void setOsoba(Osoba osoba) {
-        this.osoba = osoba;
-    }
+	public Collection<Rizik> getRizici() {
+		return rizici;
+	}
 
-    public Polisa getPolisa() {
-        return polisa;
-    }
+	public void setRizici(Collection<Rizik> rizici) {
+		this.rizici = rizici;
+	}
 
-    public void setPolisa(Polisa polisa) {
-        this.polisa = polisa;
-    }
-
-    public Marka getMarka() {
-        return marka;
-    }
-
-    public void setMarka(Marka marka) {
-        this.marka = marka;
-    }
-
-    public Model getModel() {
-        return model;
-    }
-
-    public void setModel(Model model) {
-        this.model = model;
-    }
-
-    public boolean isJeVlasnik() {
-        return jeVlasnik;
-    }
-
-    public void setJeVlasnik(boolean jeVlasnik) {
-        this.jeVlasnik = jeVlasnik;
-    }
 }
