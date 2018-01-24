@@ -11,4 +11,6 @@ import dc.insurance.domain.TipRizika;
 @Repository
 public interface TipRizikaRepository extends JpaRepository<TipRizika, Integer>{
 
+    List<TipRizika> findByNaziv(String naziv);
+
 }

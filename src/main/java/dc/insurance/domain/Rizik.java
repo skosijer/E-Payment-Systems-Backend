@@ -16,7 +16,7 @@ public class Rizik implements Serializable {
 	@GeneratedValue
 	private int idRizik;
 
-	@Column(nullable = false, length = 255, unique = true)
+	@Column(nullable = false, length = 255)
 	private String vrednost;
 
 	@ManyToOne
