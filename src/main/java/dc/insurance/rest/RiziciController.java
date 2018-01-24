@@ -1,29 +1,40 @@
 package dc.insurance.rest;
 
-import dc.insurance.domain.Rizik;
-import dc.insurance.domain.TipRizika;
-import dc.insurance.repo.RizikRepository;
-import dc.insurance.repo.TipRizikaRepository;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import dc.insurance.DTO.PolisaDTO;
+import dc.insurance.domain.Rizik;
+import dc.insurance.domain.TipRizika;
+import dc.insurance.repo.RizikRepository;
+import dc.insurance.repo.TipRizikaRepository;
 
 @RestController
 @CrossOrigin
 @RequestMapping("/dcRizici")
 public class RiziciController {
 
-    @Autowired
+	@Autowired
     private TipRizikaRepository tipRizikaRepository;
 
     @Autowired
     private RizikRepository rizikRepository;
+    
+    @PostMapping(value = "/polisa")
+    public ResponseEntity<?> postPolisa(@RequestBody PolisaDTO polisa) {
+ 
+    	
+    	return new ResponseEntity<>(null, HttpStatus.OK);
+    }
 
     @RequestMapping(method = RequestMethod.GET, value = "/dobaviStarosneGrupe")
     public ResponseEntity<?> dobaviStarosneGrupe() {
