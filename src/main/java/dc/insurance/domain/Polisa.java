@@ -26,7 +26,7 @@ public class Polisa implements Serializable {
 	private Date datum;
 
 	@Column(nullable = false)
-	private Date trajanje;
+	private int trajanje;
 
 	@Column(nullable = false, length = 50)
 	private String email;
@@ -74,11 +74,11 @@ public class Polisa implements Serializable {
 		this.datum = datum;
 	}
 
-	public Date getTrajanje() {
+	public int getTrajanje() {
 		return trajanje;
 	}
 
-	public void setTrajanje(Date trajanje) {
+	public void setTrajanje(int trajanje) {
 		this.trajanje = trajanje;
 	}
 

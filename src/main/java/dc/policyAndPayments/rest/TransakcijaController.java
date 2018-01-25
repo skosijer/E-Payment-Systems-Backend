@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 
 import dc.insurance.DTO.ResponseDTO;
-import dc.policyAndPayments.domain.OsiguranjeDTO;
 import dc.policyAndPayments.domain.StanjeTransakcije;
 import dc.policyAndPayments.domain.Transakcija;
 import dc.policyAndPayments.repo.TransakcijaRepository;
@@ -36,28 +35,29 @@ public class TransakcijaController {
 	private TransakcijaRepository transakcijaRepository; 
 	
 	private final Log logger = LogFactory.getLog(this.getClass());
-	
-	@RequestMapping(value = "/logBeginOfTransaction", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON)
-	public ResponseEntity<?> logBeginOfTransaction(@RequestBody OsiguranjeDTO osiguranjeDTO) throws URISyntaxException {
-		
-		Transakcija transakcija = new Transakcija();
-		transakcija.setStanjeTransakcije(StanjeTransakcije.Zapoceta);
-		transakcija.setIznosTransakcije(new BigDecimal("1000.0"));
-		
-		//TODO u pretodnog koraku kada bude postojao dobar Model
-		// izracunati cenu polise...
-		//transakcija.setIznosTransakcije(osiguranjeDTO.get);
-		transakcija = transakcijaRepository.save(transakcija); 
-		CreateTransakcijaDTO dto = new CreateTransakcijaDTO(); 
-		dto.setId(transakcija.getId());
-		dto.setTimestamp(new Date());
-		dto.setIznosTransakcije(transakcija.getIznosTransakcije());
-		
-		if (transakcija != null) {
-			return ResponseEntity.ok(dto);
-		}
-		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-	}
+
+	//PROMENITI DA BUDE POLISA DTO
+//	@RequestMapping(value = "/logBeginOfTransaction", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON)
+//	public ResponseEntity<?> logBeginOfTransaction(@RequestBody OsiguranjeDTO osiguranjeDTO) throws URISyntaxException {
+//
+//		Transakcija transakcija = new Transakcija();
+//		transakcija.setStanjeTransakcije(StanjeTransakcije.Zapoceta);
+//		transakcija.setIznosTransakcije(new BigDecimal("1000.0"));
+//
+//		//TODO u pretodnog koraku kada bude postojao dobar Model
+//		// izracunati cenu polise...
+//		//transakcija.setIznosTransakcije(osiguranjeDTO.get);
+//		transakcija = transakcijaRepository.save(transakcija);
+//		CreateTransakcijaDTO dto = new CreateTransakcijaDTO();
+//		dto.setId(transakcija.getId());
+//		dto.setTimestamp(new Date());
+//		dto.setIznosTransakcije(transakcija.getIznosTransakcije());
+//
+//		if (transakcija != null) {
+//			return ResponseEntity.ok(dto);
+//		}
+//		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//	}
 	
 	@RequestMapping(value = "/logEndOfTransaction", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON)
 	public ResponseEntity<?> logEndOfTransaction(@RequestBody ResponseDTO responseDTO) throws URISyntaxException {

@@ -8,7 +8,7 @@ public class PolisaDTO {
 	public ArrayList<OsobaDTO> osiguranici;
 	public ArrayList<RizikDTO> riziciPutno;
 	public OsobaDTO nosilac;
-	public ArrayList<dc.insurance.DTO.NekretninaDTO> nekretnine;
+	public ArrayList<NekretninaDTO> nekretnine;
 	public ArrayList<VoziloDTO> vozila;
 	public int trajanjeOsiguranja;
 	public String vrstaPaketa;

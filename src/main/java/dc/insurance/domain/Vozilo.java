@@ -22,7 +22,7 @@ public class Vozilo implements Serializable {
 	private int idVozilo;
 
 	@Column(nullable = false)
-	private Date godinaProizvodnje;
+	private String godinaProizvodnje;
 
 	@Column(nullable = false, length = 10)
 	private String tablice;
@@ -52,11 +52,11 @@ public class Vozilo implements Serializable {
 		this.idVozilo = idVozilo;
 	}
 
-	public Date getGodinaProizvodnje() {
+	public String getGodinaProizvodnje() {
 		return godinaProizvodnje;
 	}
 
-	public void setGodinaProizvodnje(Date godinaProizvodnje) {
+	public void setGodinaProizvodnje(String godinaProizvodnje) {
 		this.godinaProizvodnje = godinaProizvodnje;
 	}
 

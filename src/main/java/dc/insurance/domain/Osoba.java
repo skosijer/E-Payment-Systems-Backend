@@ -51,6 +51,18 @@ public class Osoba implements Serializable {
 	public Osoba() {
 	}
 
+	public Osoba(TIPOSOBE tipOsobe, String ime, String prezime, String JMBG, String adresa, String brojPasosa, String brojTelefona, Date datumRodjenja, String email) {
+		this.tipOsobe = tipOsobe;
+		this.ime = ime;
+		this.prezime = prezime;
+		this.JMBG = JMBG;
+		this.adresa = adresa;
+		this.brojPasosa = brojPasosa;
+		this.brojTelefona = brojTelefona;
+		this.datumRodjenja = datumRodjenja;
+		this.email = email;
+	}
+
 	public int getIdOsoba() {
 		return idOsoba;
 	}

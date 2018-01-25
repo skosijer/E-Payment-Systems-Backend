@@ -1,11 +1,12 @@
 package dc.insurance.rest;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-import dc.insurance.DTO.OsobaDTO;
-import dc.insurance.DTO.RizikDTO;
-import dc.insurance.domain.Osoba;
+import dc.insurance.DTO.*;
+import dc.insurance.domain.*;
+import dc.insurance.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,12 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import dc.insurance.DTO.PolisaDTO;
-import dc.insurance.domain.Rizik;
-import dc.insurance.domain.TipRizika;
-import dc.insurance.repo.RizikRepository;
-import dc.insurance.repo.TipRizikaRepository;
 
 @RestController
 @CrossOrigin
@@ -32,16 +27,94 @@ public class RiziciController {
 
     @Autowired
     private RizikRepository rizikRepository;
+
+    @Autowired
+    private PolisaRepository polisaRepository;
+
+    @Autowired
+    private OsobaRepository osobaRepository;
+
+    @Autowired
+    private NekretninaRepository nekretninaRepository;
+
+    @Autowired
+    private VoziloRepository voziloRepository;
     
     @PostMapping(value = "/polisa")
     public ResponseEntity<?> postPolisa(@RequestBody PolisaDTO polisa) {
 
+        Polisa p = new Polisa();
+
         List<Osoba> osiguranici = new ArrayList<Osoba>();
         for(OsobaDTO osiguranik: polisa.osiguranici){
-            Osoba osoba = new Osoba();
-            System.out.println(osiguranik.email);
-            System.out.println(osiguranik.tipOsobe);
+            Osoba osoba = new Osoba(Osoba.TIPOSOBE.OSIGURANIK, osiguranik.ime, osiguranik.prezime, osiguranik.jmbg, osiguranik.adresa, osiguranik.brojPasosa, osiguranik.brojTelefona, osiguranik.datumRodjenja, osiguranik.email);
+            osiguranici.add(osoba);
         }
+
+        osiguranici = this.osobaRepository.save(osiguranici);
+
+        Osoba nosilac = null;
+        if(polisa.nosilac.tipOsobe == OsobaDTO.TipOsobe.OSIGURANIK){
+            nosilac = new Osoba(Osoba.TIPOSOBE.OSIGURANIK, polisa.nosilac.ime, polisa.nosilac.prezime, polisa.nosilac.jmbg, polisa.nosilac.adresa, polisa.nosilac.brojPasosa, polisa.nosilac.brojTelefona, polisa.nosilac.datumRodjenja, polisa.nosilac.email);
+        }else{
+            nosilac = new Osoba(Osoba.TIPOSOBE.DRUGO_LICE, polisa.nosilac.ime, polisa.nosilac.prezime, polisa.nosilac.jmbg, polisa.nosilac.adresa, polisa.nosilac.brojPasosa, polisa.nosilac.brojTelefona, polisa.nosilac.datumRodjenja, polisa.nosilac.email);
+        }
+
+        nosilac = this.osobaRepository.save(nosilac);
+
+        List<Integer> ids = new ArrayList<Integer>();
+        for(RizikDTO riziciPutnoDTO: polisa.riziciPutno){
+            ids.add(riziciPutnoDTO.idRizik);
+        }
+
+        p.setRizici(this.rizikRepository.findByIdRizikIn(ids));
+
+
+        int trajanje = polisa.trajanjeOsiguranja;
+        Date datum = polisa.pocetakOsiguranja;
+
+        List<Nekretnina> nekretnine = new ArrayList<Nekretnina>();
+        for(NekretninaDTO n: polisa.nekretnine){
+            Osoba vlasnik = new Osoba(null, n.vlasnik.ime, n.vlasnik.prezime, n.vlasnik.jmbg, n.vlasnik.adresa, n.vlasnik.brojPasosa, n.vlasnik.brojTelefona, n.vlasnik.datumRodjenja, n.vlasnik.email);
+            vlasnik = this.osobaRepository.save(vlasnik);
+            List<Integer> ids1 = new ArrayList<Integer>();
+            for(RizikDTO rdto: n.rizici){
+                ids1.add(rdto.idRizik);
+            }
+            Nekretnina nek = new Nekretnina();
+            nek.setRizici(this.rizikRepository.findByIdRizikIn(ids1));
+            nek.setVlasnik(vlasnik);
+            nekretnine.add(nek);
+        }
+
+        nekretnine = this.nekretninaRepository.save(nekretnine);
+
+        List<Vozilo> vozila = new ArrayList<Vozilo>();
+        for(VoziloDTO n: polisa.vozila){
+            Osoba vlasnik = new Osoba(null, n.vlasnik.ime, n.vlasnik.prezime, n.vlasnik.jmbg, n.vlasnik.adresa, n.vlasnik.brojPasosa, n.vlasnik.brojTelefona, n.vlasnik.datumRodjenja, n.vlasnik.email);
+            vlasnik = this.osobaRepository.save(vlasnik);
+            List<Integer> ids2 = new ArrayList<Integer>();
+            for(RizikDTO rdto: n.rizici){
+                ids2.add(rdto.idRizik);
+            }
+            Vozilo voz = new Vozilo();
+            voz.setRizici(this.rizikRepository.findByIdRizikIn(ids2));
+            voz.setVlasnik(vlasnik);
+            voz.setBrojSasije(n.brojSasije);
+            voz.setGodinaProizvodnje(n.godinaProizvodnje);
+            voz.setTablice(n.brojTablica);
+            voz.setMarkaTip(n.markaTip);
+            vozila.add(voz);
+        }
+
+        p.setDatum(datum);
+        p.setTrajanje(trajanje);
+        p.setEmail(nosilac.getEmail());
+        p.setNekretnine(nekretnine);
+        p.setNosilac(nosilac);
+        p.setOsiguranici(osiguranici);
+        p.setVozila(this.voziloRepository.save(vozila));
+        this.polisaRepository.save(p);
 
         return new ResponseEntity<>(null, HttpStatus.OK);
     }

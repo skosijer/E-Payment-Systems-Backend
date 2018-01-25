@@ -12,5 +12,6 @@ import java.util.List;
 public interface RizikRepository extends JpaRepository<Rizik, Integer> {
 
     List<Rizik> findByTipRizika(TipRizika tipRizika);
+    List<Rizik> findByIdRizikIn(List<Integer> ids);
 
 }
