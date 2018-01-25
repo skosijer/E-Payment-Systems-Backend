@@ -1,4 +1,4 @@
-package dc.insurance.rest;
+package dc.insurance.DTO;
 
 import java.util.Date;
 

@@ -3,7 +3,7 @@ package dc.policyAndPayments.domain;
 
 import java.io.Serializable;
 
-public class OsobaDTO implements Serializable {
+public class OsobaDTOJ implements Serializable {
 
     private int id;
     private String ime;
@@ -11,7 +11,7 @@ public class OsobaDTO implements Serializable {
     private String JMBG;
     private String adresa;
 
-    public OsobaDTO(){}
+    public OsobaDTOJ(){}
 
     public int getId() {
         return id;
@@ -55,7 +55,7 @@ public class OsobaDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "OsobaDTO{" +
+        return "OsobaDTOJ{" +
                 "id=" + id +
                 ", ime='" + ime + '\'' +
                 ", prezime='" + prezime + '\'' +

@@ -1,4 +1,4 @@
-package dc.insurance.rest;
+package dc.insurance.DTO;
 
 public class ResponseDTO {
 

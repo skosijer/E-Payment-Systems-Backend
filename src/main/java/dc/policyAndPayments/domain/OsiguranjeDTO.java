@@ -1,17 +1,21 @@
 package dc.policyAndPayments.domain;
 
 
+
+import dc.policyAndPayments.domain.NekretninaDTOJ;
+import dc.insurance.DTO.VoziloDTO;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 public class OsiguranjeDTO implements Serializable {
 
-    private List<OsiguranikDTO> osiguranici;
-    private OsobaDTO nosilac;
+    private List<OsiguranikDTOJ> osiguranici;
+    private OsobaDTOJ nosilac;
     private boolean nosilacJeOsiguranik;
     private List<VoziloDTO> vozila;
-    private List<NekretninaDTO> nekretnine;
+    private List<NekretninaDTOJ> nekretnine;
     private String destinacija;
     private Date pocetakOsiguranja;
     private String svrhaOsiguranja;
@@ -22,19 +26,19 @@ public class OsiguranjeDTO implements Serializable {
     public OsiguranjeDTO() {
     }
 
-    public List<OsiguranikDTO> getOsiguranici() {
+    public List<OsiguranikDTOJ> getOsiguranici() {
         return osiguranici;
     }
 
-    public void setOsiguranici(List<OsiguranikDTO> osiguranici) {
+    public void setOsiguranici(List<OsiguranikDTOJ> osiguranici) {
         this.osiguranici = osiguranici;
     }
 
-    public OsobaDTO getNosilac() {
+    public OsobaDTOJ getNosilac() {
         return nosilac;
     }
 
-    public void setNosilac(OsobaDTO nosilac) {
+    public void setNosilac(OsobaDTOJ nosilac) {
         this.nosilac = nosilac;
     }
 
@@ -54,11 +58,11 @@ public class OsiguranjeDTO implements Serializable {
         this.vozila = vozila;
     }
 
-    public List<NekretninaDTO> getNekretnine() {
+    public List<NekretninaDTOJ> getNekretnine() {
         return nekretnine;
     }
 
-    public void setNekretnine(List<NekretninaDTO> nekretnine) {
+    public void setNekretnine(List<NekretninaDTOJ> nekretnine) {
         this.nekretnine = nekretnine;
     }
 

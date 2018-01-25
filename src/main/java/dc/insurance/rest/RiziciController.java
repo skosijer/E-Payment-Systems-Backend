@@ -1,7 +1,11 @@
 package dc.insurance.rest;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import dc.insurance.DTO.OsobaDTO;
+import dc.insurance.DTO.RizikDTO;
+import dc.insurance.domain.Osoba;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,9 +35,15 @@ public class RiziciController {
     
     @PostMapping(value = "/polisa")
     public ResponseEntity<?> postPolisa(@RequestBody PolisaDTO polisa) {
- 
-    	
-    	return new ResponseEntity<>(null, HttpStatus.OK);
+
+        List<Osoba> osiguranici = new ArrayList<Osoba>();
+        for(OsobaDTO osiguranik: polisa.osiguranici){
+            Osoba osoba = new Osoba();
+            System.out.println(osiguranik.email);
+            System.out.println(osiguranik.tipOsobe);
+        }
+
+        return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/dobaviStarosneGrupe")

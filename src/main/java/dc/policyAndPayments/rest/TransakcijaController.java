@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 
-import dc.insurance.rest.ResponseDTO;
+import dc.insurance.DTO.ResponseDTO;
 import dc.policyAndPayments.domain.OsiguranjeDTO;
 import dc.policyAndPayments.domain.StanjeTransakcije;
 import dc.policyAndPayments.domain.Transakcija;

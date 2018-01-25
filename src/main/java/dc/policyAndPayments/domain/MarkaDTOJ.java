@@ -3,12 +3,12 @@ package dc.policyAndPayments.domain;
 
 import java.io.Serializable;
 
-public class MarkaDTO implements Serializable {
+public class MarkaDTOJ implements Serializable {
 
     private int id;
     private String naziv;
 
-    public MarkaDTO(){}
+    public MarkaDTOJ(){}
 
     public int getId() {
         return id;

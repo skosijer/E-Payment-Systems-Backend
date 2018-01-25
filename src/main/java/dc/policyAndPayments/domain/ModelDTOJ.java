@@ -2,13 +2,13 @@ package dc.policyAndPayments.domain;
 
 import java.io.Serializable;
 
-public class ModelDTO implements Serializable {
+public class ModelDTOJ implements Serializable {
 
     private int id;
     private String ime;
-    private MarkaDTO marka;
+    private MarkaDTOJ marka;
 
-    public ModelDTO(){}
+    public ModelDTOJ(){}
 
     public int getId() {
         return id;
@@ -26,11 +26,11 @@ public class ModelDTO implements Serializable {
         this.ime = name;
     }
 
-    public MarkaDTO getMarka() {
+    public MarkaDTOJ getMarka() {
         return marka;
     }
 
-    public void setMarka(MarkaDTO marka) {
+    public void setMarka(MarkaDTOJ marka) {
         this.marka = marka;
     }
 }

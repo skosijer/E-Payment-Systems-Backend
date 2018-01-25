@@ -2,9 +2,17 @@ package dc.insurance.DTO;
 
 public class RizikDTO {
 	
-  public int id;
+  public int idRizik;
   public String vrednost;
   public int kolicina;
-  public TipRizikaDTO tipRizik;
-  public StavkaCenovnikDTO stavkaCenovnik;
+
+
+  @Override
+  public String toString() {
+    return "RizikDTO{" +
+            "idRizik=" + idRizik +
+            ", vrednost='" + vrednost + '\'' +
+            ", kolicina=" + kolicina +
+            '}';
+  }
 }

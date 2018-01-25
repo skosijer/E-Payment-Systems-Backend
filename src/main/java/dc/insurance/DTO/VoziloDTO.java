@@ -1,11 +1,8 @@
-package dc.policyAndPayments.domain;
-
-
-import dc.insurance.DTO.RizikDTO;
+package dc.insurance.DTO;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
+
 
 public class VoziloDTO implements Serializable {
 

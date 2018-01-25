@@ -2,14 +2,14 @@ package dc.policyAndPayments.domain;
 
 import java.io.Serializable;
 
-public class OsiguranikDTO implements Serializable {
+public class OsiguranikDTOJ implements Serializable {
 
     private int id;
     private String brojPasosa;
     private String brojTelefona;
-    private OsobaDTO osoba;
+    private OsobaDTOJ osoba;
 
-    public OsiguranikDTO(){}
+    public OsiguranikDTOJ(){}
 
     public int getId() {
         return id;
@@ -35,17 +35,17 @@ public class OsiguranikDTO implements Serializable {
         this.brojTelefona = brojTelefona;
     }
 
-    public OsobaDTO getOsoba() {
+    public OsobaDTOJ getOsoba() {
         return osoba;
     }
 
-    public void setOsoba(OsobaDTO osoba) {
+    public void setOsoba(OsobaDTOJ osoba) {
         this.osoba = osoba;
     }
 
     @Override
     public String toString() {
-        return "OsiguranikDTO{" +
+        return "OsiguranikDTOJ{" +
                 "id=" + id +
                 ", brojPasosa='" + brojPasosa + '\'' +
                 ", brojTelefona='" + brojTelefona + '\'' +
