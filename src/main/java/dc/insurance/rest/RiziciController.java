@@ -39,6 +39,20 @@ public class RiziciController {
         return new ResponseEntity<>(ret, HttpStatus.OK);
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/getOsiguranjaDoIznosa")
+    public ResponseEntity<?> dobaviOsiguranjaDoIznosa() {
+
+        List<TipRizika> list = this.tipRizikaRepository.findByNaziv("Osiguran do iznosa");
+
+        if(list.size() == 0)
+            return new ResponseEntity<>("nema rizika", HttpStatus.NOT_FOUND);
+
+        TipRizika tipRizika = list.get(0);
+        List<Rizik> ret = this.rizikRepository.findByTipRizika(tipRizika);
+
+        return new ResponseEntity<>(ret, HttpStatus.OK);
+    }
+
     @RequestMapping(method = RequestMethod.GET, value = "/dobaviRegione")
     public ResponseEntity<?> dobaviDestinacije() {
 
@@ -114,6 +128,76 @@ public class RiziciController {
     public ResponseEntity<?> dobaviOsiguranjaStana() {
 
         List<TipRizika> list = this.tipRizikaRepository.findByNaziv("Od cega se osigurava");
+
+        if(list.size() == 0)
+            return new ResponseEntity<>("nema rizika", HttpStatus.NOT_FOUND);
+
+        TipRizika tipRizika = list.get(0);
+        List<Rizik> ret = this.rizikRepository.findByTipRizika(tipRizika);
+
+        return new ResponseEntity<>(ret, HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/getSlepovanje")
+    public ResponseEntity<?> dobaviSleopovanje() {
+
+        List<TipRizika> list = this.tipRizikaRepository.findByNaziv("Slepovanje");
+
+        if(list.size() == 0)
+            return new ResponseEntity<>("nema rizika", HttpStatus.NOT_FOUND);
+
+        TipRizika tipRizika = list.get(0);
+        List<Rizik> ret = this.rizikRepository.findByTipRizika(tipRizika);
+
+        return new ResponseEntity<>(ret, HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/getPopravka")
+    public ResponseEntity<?> dobaviPopravka() {
+
+        List<TipRizika> list = this.tipRizikaRepository.findByNaziv("Popravka");
+
+        if(list.size() == 0)
+            return new ResponseEntity<>("nema rizika", HttpStatus.NOT_FOUND);
+
+        TipRizika tipRizika = list.get(0);
+        List<Rizik> ret = this.rizikRepository.findByTipRizika(tipRizika);
+
+        return new ResponseEntity<>(ret, HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/getSmestaj")
+    public ResponseEntity<?> dobaviSmestaj() {
+
+        List<TipRizika> list = this.tipRizikaRepository.findByNaziv("Smestaj");
+
+        if(list.size() == 0)
+            return new ResponseEntity<>("nema rizika", HttpStatus.NOT_FOUND);
+
+        TipRizika tipRizika = list.get(0);
+        List<Rizik> ret = this.rizikRepository.findByTipRizika(tipRizika);
+
+        return new ResponseEntity<>(ret, HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/getPrevoz")
+    public ResponseEntity<?> dobaviPrevoz() {
+
+        List<TipRizika> list = this.tipRizikaRepository.findByNaziv("Prevoz");
+
+        if(list.size() == 0)
+            return new ResponseEntity<>("nema rizika", HttpStatus.NOT_FOUND);
+
+        TipRizika tipRizika = list.get(0);
+        List<Rizik> ret = this.rizikRepository.findByTipRizika(tipRizika);
+
+        return new ResponseEntity<>(ret, HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/getPovrsina")
+    public ResponseEntity<?> dobaviPovrsinu() {
+
+        List<TipRizika> list = this.tipRizikaRepository.findByNaziv("Povrsina");
 
         if(list.size() == 0)
             return new ResponseEntity<>("nema rizika", HttpStatus.NOT_FOUND);
