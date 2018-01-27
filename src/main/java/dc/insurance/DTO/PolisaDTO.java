@@ -3,6 +3,10 @@ package dc.insurance.DTO;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+
+import dc.policyAndPayments.domain.VrstaPlacanja;
+
 public class PolisaDTO {
 	
 	public ArrayList<OsobaDTO> osiguranici;
@@ -13,6 +17,8 @@ public class PolisaDTO {
 	public int trajanjeOsiguranja;
 	public String vrstaPaketa;
 	public Date pocetakOsiguranja;
+	@NotNull
+	public VrstaPlacanja vrstaPlacanja; 
 
 
 	@Override
@@ -26,6 +32,7 @@ public class PolisaDTO {
 				", trajanjeOsiguranja=" + trajanjeOsiguranja +
 				", vrstaPaketa='" + vrstaPaketa + '\'' +
 				", pocetakOsiguranja=" + pocetakOsiguranja +
+				", vrstaPlacanja=" + vrstaPlacanja +
 				'}';
 	}
 }
