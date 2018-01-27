@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import dc.insurance.DTO.*;
-import dc.insurance.domain.*;
-import dc.insurance.repo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +13,30 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import dc.insurance.DTO.CenaDTO;
+import dc.insurance.DTO.CenaRequestDTO;
+import dc.insurance.DTO.NekretninaDTO;
+import dc.insurance.DTO.OsobaDTO;
+import dc.insurance.DTO.PolisaDTO;
+import dc.insurance.DTO.RizikDTO;
+import dc.insurance.DTO.VoziloDTO;
+import dc.insurance.domain.Nekretnina;
+import dc.insurance.domain.Osoba;
+import dc.insurance.domain.Polisa;
+import dc.insurance.domain.Rizik;
+import dc.insurance.domain.Stavka;
+import dc.insurance.domain.TipRizika;
+import dc.insurance.domain.Vozilo;
+import dc.insurance.repo.NekretninaRepository;
+import dc.insurance.repo.OsobaRepository;
+import dc.insurance.repo.PolisaRepository;
+import dc.insurance.repo.RizikRepository;
+import dc.insurance.repo.StavkaRepository;
+import dc.insurance.repo.TipRizikaRepository;
+import dc.insurance.repo.VoziloRepository;
+
+import javax.ws.rs.core.MediaType;
 
 @RestController
 @CrossOrigin
@@ -39,6 +60,69 @@ public class RiziciController {
 
     @Autowired
     private VoziloRepository voziloRepository;
+    
+    @Autowired
+    private StavkaRepository stavkaRepository;
+    
+    @PostMapping(value = "/cena", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
+    public ResponseEntity<?> postCena(@RequestBody CenaRequestDTO cenaReq) //, @RequestBody RizikDTO rizikDTO, @RequestBody Integer trajanje
+    {
+    	RizikDTO rizikDTO = cenaReq.rizikDTO;
+    	ArrayList<RizikDTO> riziciDTO = cenaReq.riziciDTO;
+    	int trajanje = cenaReq.trajanje;
+    	
+    	System.out.println("ne verujem");
+    	
+    	ArrayList<Integer> ids = new ArrayList<>();
+    	
+    	riziciDTO.forEach(item -> ids.add(item.idRizik));
+    	
+    	List<Rizik> rizici =  rizikRepository.findByIdRizikIn(ids);
+    	Rizik rizik = rizikRepository.findOne(rizikDTO.idRizik);
+    	
+    	List<Stavka> stavke = stavkaRepository.findByRizik(rizik);
+    	Stavka stavkaSaCenom = stavke.get(0);
+    	
+    	List<Stavka> stavkeSaKolicnikom = stavkaRepository.findByRizikIn(rizici);
+    	
+    	List<Integer> tipoviRizikaID = new ArrayList<>();
+    	rizici.forEach(item -> tipoviRizikaID.add(item.getTipRizika().getIdTipRizika()));
+    	
+    	List<TipRizika> tipoviRizika = tipRizikaRepository.findByIdTipRizikaIn(tipoviRizikaID);
+    	
+    	//Region Evropa 10 xxx
+    	// 0.1 
+    	//1 +  . . .. .   3.2
+    	
+    	ArrayList<CenaDTO> cene = new ArrayList<CenaDTO>();
+    	double ukupanKolicnik = 0;
+    	
+    	for(Stavka s : stavkeSaKolicnikom)
+    	{
+    		ukupanKolicnik += s.getKolicnik();
+    		
+    		CenaDTO cena = new CenaDTO();
+    		
+    		cena.cena = s.getKolicnik() * stavkaSaCenom.getJedinicnaCena();
+    		System.out.println("KOL: " + s.getKolicnik() + " " + stavkaSaCenom.getJedinicnaCena());
+    		cena.tipRizika = getNazivTipaRizika(s.getRizik().getTipRizika().getIdTipRizika(), tipoviRizika);
+    		cena.rizik = s.getRizik().getVrednost();
+    		
+    		cene.add(cena);
+    	}
+    	
+    	return new ResponseEntity<>(cene, HttpStatus.OK);
+    }
+    
+    public String getNazivTipaRizika(int id, List<TipRizika> list)
+    {
+    	for(TipRizika tr : list)
+    	{
+    		if(tr.getIdTipRizika() == id)
+    			return tr.getNaziv();
+    	}
+    	return "";
+    }
     
     @PostMapping(value = "/polisa")
     public ResponseEntity<?> postPolisa(@RequestBody PolisaDTO polisa) {

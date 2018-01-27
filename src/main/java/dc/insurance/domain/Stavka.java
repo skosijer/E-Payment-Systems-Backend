@@ -16,11 +16,11 @@ public class Stavka implements Serializable {
 	@GeneratedValue
 	private int idStavka;
 
-	@Column(nullable = false)
-	private int kolicnik;
+	@Column(nullable = true)
+	private Double kolicnik;
 
-	@Column(nullable = false)
-	private int jedinicnaCena;
+	@Column(nullable = true)
+	private Double jedinicnaCena;
 
 	@ManyToOne
 	@JoinColumn
@@ -37,19 +37,19 @@ public class Stavka implements Serializable {
 		this.idStavka = idStavka;
 	}
 
-	public int getKolicnik() {
+	public Double getKolicnik() {
 		return kolicnik;
 	}
 
-	public void setKolicnik(int kolicnik) {
+	public void setKolicnik(Double kolicnik) {
 		this.kolicnik = kolicnik;
 	}
 
-	public int getJedinicnaCena() {
+	public Double getJedinicnaCena() {
 		return jedinicnaCena;
 	}
 
-	public void setJedinicnaCena(int jedinicnaCena) {
+	public void setJedinicnaCena(Double jedinicnaCena) {
 		this.jedinicnaCena = jedinicnaCena;
 	}
 
