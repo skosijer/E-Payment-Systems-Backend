@@ -1,9 +1,11 @@
 package dc.insurance.rest;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import dc.insurance.DTO.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,13 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import dc.insurance.DTO.CenaDTO;
-import dc.insurance.DTO.CenaRequestDTO;
-import dc.insurance.DTO.NekretninaDTO;
-import dc.insurance.DTO.OsobaDTO;
-import dc.insurance.DTO.PolisaDTO;
-import dc.insurance.DTO.RizikDTO;
-import dc.insurance.DTO.VoziloDTO;
 import dc.insurance.domain.Nekretnina;
 import dc.insurance.domain.Osoba;
 import dc.insurance.domain.Polisa;
@@ -71,16 +66,15 @@ public class RiziciController {
     	ArrayList<RizikDTO> riziciDTO = cenaReq.riziciDTO;
     	int trajanje = cenaReq.trajanje;
     	
-    	System.out.println("ne verujem");
-    	
     	ArrayList<Integer> ids = new ArrayList<>();
-    	
-    	riziciDTO.forEach(item -> ids.add(item.idRizik));
+
+        riziciDTO.forEach(item -> ids.add(item.idRizik));
     	
     	List<Rizik> rizici =  rizikRepository.findByIdRizikIn(ids);
     	Rizik rizik = rizikRepository.findOne(rizikDTO.idRizik);
     	
     	List<Stavka> stavke = stavkaRepository.findByRizik(rizik);
+    	//OVDE BI SE MOGLO PROCI KROZ FOR STAVKI I UZEti ONU CIJI CENOVNIK VAZI
     	Stavka stavkaSaCenom = stavke.get(0);
     	
     	List<Stavka> stavkeSaKolicnikom = stavkaRepository.findByRizikIn(rizici);
@@ -92,26 +86,48 @@ public class RiziciController {
     	
     	//Region Evropa 10 xxx
     	// 0.1 
-    	//1 +  . . .. .   3.2
+    	//1 +  . . . . .   3.2
     	
     	ArrayList<CenaDTO> cene = new ArrayList<CenaDTO>();
     	double ukupanKolicnik = 0;
+        DecimalFormat df = new DecimalFormat("#.##");
+
+        UkupnaCenaDTO ukupnaCenaDTO = new UkupnaCenaDTO();
     	
     	for(Stavka s : stavkeSaKolicnikom)
     	{
     		ukupanKolicnik += s.getKolicnik();
     		
     		CenaDTO cena = new CenaDTO();
-    		
-    		cena.cena = s.getKolicnik() * stavkaSaCenom.getJedinicnaCena();
-    		System.out.println("KOL: " + s.getKolicnik() + " " + stavkaSaCenom.getJedinicnaCena());
+
+    		RizikDTO r = getRizikDTOByIdRizik(s.getRizik().getIdRizik(), riziciDTO);
+
+    		if(r.kolicina == 0){
+                cena.cena = Double.valueOf(df.format(s.getKolicnik() * stavkaSaCenom.getJedinicnaCena() * trajanje));
+                r.kolicina = 1;
+            }else{
+                cena.cena = Double.valueOf(df.format(s.getKolicnik() * stavkaSaCenom.getJedinicnaCena() * trajanje * r.kolicina));
+            }
+
+    		cena.broj = r.kolicina;
     		cena.tipRizika = getNazivTipaRizika(s.getRizik().getTipRizika().getIdTipRizika(), tipoviRizika);
     		cena.rizik = s.getRizik().getVrednost();
+    		ukupnaCenaDTO.ukupnaCena = Double.valueOf(df.format(cena.cena + ukupnaCenaDTO.ukupnaCena));
     		
     		cene.add(cena);
     	}
+    	ukupnaCenaDTO.cene = cene;
     	
-    	return new ResponseEntity<>(cene, HttpStatus.OK);
+    	return new ResponseEntity<>(ukupnaCenaDTO, HttpStatus.OK);
+    }
+
+    public RizikDTO getRizikDTOByIdRizik(final int idRizik, final ArrayList<RizikDTO> riziciDTO){
+        for(RizikDTO rdto: riziciDTO){
+            if(rdto.idRizik == idRizik){
+                return rdto;
+            }
+        }
+        return null;
     }
     
     public String getNazivTipaRizika(int id, List<TipRizika> list)

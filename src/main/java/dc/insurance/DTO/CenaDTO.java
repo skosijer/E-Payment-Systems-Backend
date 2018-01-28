@@ -4,5 +4,6 @@ public class CenaDTO {
 
 	public String tipRizika;
 	public String rizik;
-	public double cena;
+	public Double cena;
+	public Integer broj;
 }
