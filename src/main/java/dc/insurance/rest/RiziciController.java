@@ -65,39 +65,39 @@ public class RiziciController {
     	RizikDTO rizikDTO = cenaReq.rizikDTO;
     	ArrayList<RizikDTO> riziciDTO = cenaReq.riziciDTO;
     	int trajanje = cenaReq.trajanje;
-    	
+
     	ArrayList<Integer> ids = new ArrayList<>();
 
         riziciDTO.forEach(item -> ids.add(item.idRizik));
-    	
+
     	List<Rizik> rizici =  rizikRepository.findByIdRizikIn(ids);
     	Rizik rizik = rizikRepository.findOne(rizikDTO.idRizik);
-    	
+
     	List<Stavka> stavke = stavkaRepository.findByRizik(rizik);
     	//OVDE BI SE MOGLO PROCI KROZ FOR STAVKI I UZEti ONU CIJI CENOVNIK VAZI
     	Stavka stavkaSaCenom = stavke.get(0);
-    	
+
     	List<Stavka> stavkeSaKolicnikom = stavkaRepository.findByRizikIn(rizici);
-    	
+
     	List<Integer> tipoviRizikaID = new ArrayList<>();
     	rizici.forEach(item -> tipoviRizikaID.add(item.getTipRizika().getIdTipRizika()));
-    	
+
     	List<TipRizika> tipoviRizika = tipRizikaRepository.findByIdTipRizikaIn(tipoviRizikaID);
-    	
+
     	//Region Evropa 10 xxx
-    	// 0.1 
+    	// 0.1
     	//1 +  . . . . .   3.2
-    	
+
     	ArrayList<CenaDTO> cene = new ArrayList<CenaDTO>();
     	double ukupanKolicnik = 0;
         DecimalFormat df = new DecimalFormat("#.##");
 
         UkupnaCenaDTO ukupnaCenaDTO = new UkupnaCenaDTO();
-    	
+
     	for(Stavka s : stavkeSaKolicnikom)
     	{
     		ukupanKolicnik += s.getKolicnik();
-    		
+
     		CenaDTO cena = new CenaDTO();
 
     		RizikDTO r = getRizikDTOByIdRizik(s.getRizik().getIdRizik(), riziciDTO);
@@ -113,12 +113,79 @@ public class RiziciController {
     		cena.tipRizika = getNazivTipaRizika(s.getRizik().getTipRizika().getIdTipRizika(), tipoviRizika);
     		cena.rizik = s.getRizik().getVrednost();
     		ukupnaCenaDTO.ukupnaCena = Double.valueOf(df.format(cena.cena + ukupnaCenaDTO.ukupnaCena));
-    		
+
     		cene.add(cena);
     	}
     	ukupnaCenaDTO.cene = cene;
-    	
+
     	return new ResponseEntity<>(ukupnaCenaDTO, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/cenaSvega", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
+    public ResponseEntity<?> getCenaSvega(@RequestBody ArrayList<CenaRequestDTO> cenaReqArray) //, @RequestBody RizikDTO rizikDTO, @RequestBody Integer trajanje
+    {
+        CenaSvegaDTO cenaSvegaDTO = new CenaSvegaDTO();
+        for(CenaRequestDTO cenaReq : cenaReqArray){
+            RizikDTO rizikDTO = cenaReq.rizikDTO;
+            ArrayList<RizikDTO> riziciDTO = cenaReq.riziciDTO;
+            int trajanje = cenaReq.trajanje;
+
+            ArrayList<Integer> ids = new ArrayList<>();
+
+            riziciDTO.forEach(item -> ids.add(item.idRizik));
+
+            List<Rizik> rizici =  rizikRepository.findByIdRizikIn(ids);
+            Rizik rizik = rizikRepository.findOne(rizikDTO.idRizik);
+
+            List<Stavka> stavke = stavkaRepository.findByRizik(rizik);
+            //OVDE BI SE MOGLO PROCI KROZ FOR STAVKI I UZEti ONU CIJI CENOVNIK VAZI
+            Stavka stavkaSaCenom = stavke.get(0);
+
+            List<Stavka> stavkeSaKolicnikom = stavkaRepository.findByRizikIn(rizici);
+
+            List<Integer> tipoviRizikaID = new ArrayList<>();
+            rizici.forEach(item -> tipoviRizikaID.add(item.getTipRizika().getIdTipRizika()));
+
+            List<TipRizika> tipoviRizika = tipRizikaRepository.findByIdTipRizikaIn(tipoviRizikaID);
+
+            //Region Evropa 10 xxx
+            // 0.1
+            //1 +  . . . . .   3.2
+
+            ArrayList<CenaDTO> cene = new ArrayList<CenaDTO>();
+            double ukupanKolicnik = 0;
+            DecimalFormat df = new DecimalFormat("#.##");
+
+            UkupnaCenaDTO ukupnaCenaDTO = new UkupnaCenaDTO();
+
+            for(Stavka s : stavkeSaKolicnikom)
+            {
+                ukupanKolicnik += s.getKolicnik();
+
+                CenaDTO cena = new CenaDTO();
+
+                RizikDTO r = getRizikDTOByIdRizik(s.getRizik().getIdRizik(), riziciDTO);
+
+                if(r.kolicina == 0){
+                    cena.cena = Double.valueOf(df.format(s.getKolicnik() * stavkaSaCenom.getJedinicnaCena() * trajanje));
+                    r.kolicina = 1;
+                }else{
+                    cena.cena = Double.valueOf(df.format(s.getKolicnik() * stavkaSaCenom.getJedinicnaCena() * trajanje * r.kolicina));
+                }
+
+                cena.broj = r.kolicina;
+                cena.tipRizika = getNazivTipaRizika(s.getRizik().getTipRizika().getIdTipRizika(), tipoviRizika);
+                cena.rizik = s.getRizik().getVrednost();
+                ukupnaCenaDTO.ukupnaCena = Double.valueOf(df.format(cena.cena + ukupnaCenaDTO.ukupnaCena));
+
+                cene.add(cena);
+            }
+            ukupnaCenaDTO.cene = cene;
+            cenaSvegaDTO.ukupneCeneDTOs.add(ukupnaCenaDTO);
+            cenaSvegaDTO.cenaSvega = Double.valueOf(cenaSvegaDTO.cenaSvega + ukupnaCenaDTO.ukupnaCena);
+        }
+
+        return new ResponseEntity<>(cenaSvegaDTO, HttpStatus.OK);
     }
 
     public RizikDTO getRizikDTOByIdRizik(final int idRizik, final ArrayList<RizikDTO> riziciDTO){
